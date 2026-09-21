@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { student } from "@/data/portal";
+import { useProfile, useSession } from "@/hooks/use-portal-data";
+import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
   { to: "/", label: "Overview" },
@@ -12,6 +14,16 @@ const nav = [
 ] as const;
 
 export function Shell({ children }: { children: ReactNode }) {
+  const { user, loading } = useSession();
+  const { data: profile } = useProfile();
+  const initials = profile?.initials ?? student.initials;
+  const gradYear = profile?.grad_year ?? student.gradYear;
+
+  async function signOut() {
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur-md">
@@ -40,9 +52,28 @@ export function Shell({ children }: { children: ReactNode }) {
             <span className="hidden font-mono text-[11px] text-muted-foreground sm:inline">
               Season closes in 14 days
             </span>
-            <span className="grid size-8 place-items-center rounded-full bg-secondary font-mono text-[11px] text-foreground">
-              {student.initials}
-            </span>
+            {!loading && !user ? (
+              <Link
+                to="/auth"
+                className="rounded-md bg-primary px-3 py-1.5 text-[13px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                Sign in
+              </Link>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="grid size-8 place-items-center rounded-full bg-secondary font-mono text-[11px] text-foreground">
+                  {initials}
+                </span>
+                {user && (
+                  <button
+                    onClick={signOut}
+                    className="hidden text-[12px] text-muted-foreground hover:text-foreground sm:inline"
+                  >
+                    Sign out
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
         <nav className="flex gap-1 overflow-x-auto border-t border-border px-5 py-2 md:hidden">
@@ -60,7 +91,7 @@ export function Shell({ children }: { children: ReactNode }) {
       </header>
       <main className="mx-auto max-w-[1320px] px-5 py-8">{children}</main>
       <footer className="mx-auto max-w-[1320px] px-5 pb-10 pt-4">
-        <p className="label-mono">Placement Desk · Batch of {student.gradYear}</p>
+        <p className="label-mono">Placement Desk · Batch of {gradYear}</p>
       </footer>
     </div>
   );
