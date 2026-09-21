@@ -1,10 +1,11 @@
 # Placement Portal Roadmap
 
-- [ ] Pick design direction and set up design system (tokens, fonts)
-- [ ] Student dashboard: readiness, pipeline, deadlines
-- [ ] Drives listing + drive detail with eligibility
-- [ ] Application pipeline tracker (Applied → OA → Tech → HR → Offer)
-- [ ] Interview calendar
-- [ ] Prep & resources desk
-- [ ] GitHub & LinkedIn profile optimization module (profile scoring, checklists, actionable fixes)
-- [ ] Per-route head metadata
+- [x] Design system (dark ink + amber signal, Space Grotesk / Inter / IBM Plex Mono)
+- [x] Student overview: readiness, pipeline, deadlines, week ahead
+- [x] Drives listing with search + eligibility filter
+- [x] Drive detail with eligibility, rounds, progress
+- [x] Application pipeline tracker (Applied → OA → Tech → HR → Offer)
+- [x] Interview calendar + deadline rail
+- [x] Prep desk with tracks and playbooks
+- [x] Profile Lab: weighted GitHub & LinkedIn optimization checklists with fixes
+- [x] Per-route head metadata
