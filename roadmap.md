@@ -9,3 +9,13 @@
 - [x] Prep desk with tracks and playbooks
 - [x] Profile Lab: weighted GitHub & LinkedIn optimization checklists with fixes
 - [x] Per-route head metadata
+- [x] Supabase project linked + client + auth middleware
+- [x] Full Postgres schema (profiles, drives, applications, history, interviews, prep, profile_checks)
+- [x] RLS policies (students own their data, drives public)
+- [x] Auth page (sign in / sign up with profile metadata)
+- [x] Data hooks (useProfile, useDrives, useApplications, useInterviews, usePrepTracks, useProfileChecks)
+- [ ] Wire all routes to live Supabase data (hooks are ready)
+- [ ] Apply-to-drive flow + optimistic pipeline updates
+- [ ] Toggle profile checks with persistence
+- [ ] Admin / placement cell role for managing drives
+- [ ] Real-time application status (optional)
