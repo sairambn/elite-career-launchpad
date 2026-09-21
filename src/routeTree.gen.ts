@@ -10,7 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as DrivesRouteImport } from './routes/drives'
+import { Route as PipelineRouteImport } from './routes/pipeline'
+import { Route as PrepRouteImport } from './routes/prep'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as DrivesIndexRouteImport } from './routes/drives.index'
 import { Route as DrivesDriveIdRouteImport } from './routes/drives.$driveId'
 
@@ -19,9 +23,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalendarRoute = CalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DrivesRoute = DrivesRouteImport.update({
   id: '/drives',
   path: '/drives',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PipelineRoute = PipelineRouteImport.update({
+  id: '/pipeline',
+  path: '/pipeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrepRoute = PrepRouteImport.update({
+  id: '/prep',
+  path: '/prep',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DrivesIndexRoute = DrivesIndexRouteImport.update({
@@ -37,33 +61,73 @@ const DrivesDriveIdRoute = DrivesDriveIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/drives': typeof DrivesRouteWithChildren
+  '/pipeline': typeof PipelineRoute
+  '/prep': typeof PrepRoute
+  '/profile': typeof ProfileRoute
   '/drives/$driveId': typeof DrivesDriveIdRoute
   '/drives/': typeof DrivesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
+  '/pipeline': typeof PipelineRoute
+  '/prep': typeof PrepRoute
+  '/profile': typeof ProfileRoute
   '/drives/$driveId': typeof DrivesDriveIdRoute
   '/drives': typeof DrivesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
   '/drives': typeof DrivesRouteWithChildren
+  '/pipeline': typeof PipelineRoute
+  '/prep': typeof PrepRoute
+  '/profile': typeof ProfileRoute
   '/drives/$driveId': typeof DrivesDriveIdRoute
   '/drives/': typeof DrivesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/drives' | '/drives/$driveId' | '/drives/'
+  fullPaths:
+    | '/'
+    | '/calendar'
+    | '/drives'
+    | '/pipeline'
+    | '/prep'
+    | '/profile'
+    | '/drives/$driveId'
+    | '/drives/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/drives/$driveId' | '/drives'
-  id: '__root__' | '/' | '/drives' | '/drives/$driveId' | '/drives/'
+  to:
+    | '/'
+    | '/calendar'
+    | '/pipeline'
+    | '/prep'
+    | '/profile'
+    | '/drives/$driveId'
+    | '/drives'
+  id:
+    | '__root__'
+    | '/'
+    | '/calendar'
+    | '/drives'
+    | '/pipeline'
+    | '/prep'
+    | '/profile'
+    | '/drives/$driveId'
+    | '/drives/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CalendarRoute: typeof CalendarRoute
   DrivesRoute: typeof DrivesRouteWithChildren
+  PipelineRoute: typeof PipelineRoute
+  PrepRoute: typeof PrepRoute
+  ProfileRoute: typeof ProfileRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +139,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/drives': {
       id: '/drives'
       path: '/drives'
       fullPath: '/drives'
       preLoaderRoute: typeof DrivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pipeline': {
+      id: '/pipeline'
+      path: '/pipeline'
+      fullPath: '/pipeline'
+      preLoaderRoute: typeof PipelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prep': {
+      id: '/prep'
+      path: '/prep'
+      fullPath: '/prep'
+      preLoaderRoute: typeof PrepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/drives/': {
@@ -114,7 +206,11 @@ const DrivesRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CalendarRoute: CalendarRoute,
   DrivesRoute: DrivesRouteWithChildren,
+  PipelineRoute: PipelineRoute,
+  PrepRoute: PrepRoute,
+  ProfileRoute: ProfileRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
